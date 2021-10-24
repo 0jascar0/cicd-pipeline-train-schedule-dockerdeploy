@@ -2,12 +2,16 @@ pipeline {
     agent any
       tools {nodejs "node"}
  
-  stages {
-    stage('Example') {
-      steps {
-        sh 'npm config ls'
-      }
+  stage('Check') {
+  when {
+    anyOf {
+      changeset "src/**/*.ts"
+      changeset "package.json"
     }
+  }
+  steps {
+      sh 'npm install'
+      sh 'npm build'
   }
 }
     stages {
