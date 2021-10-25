@@ -1,6 +1,6 @@
 pipeline {
     agent any
-      tools {nodejs "node"}
+      tools {nodejs "NodeJS 16.11.1"}
  
   stage('Check') {
   when {
