@@ -5,6 +5,8 @@ pipeline {
     environment {
         //be sure to replace "jascar" with your own Docker Hub username
         DOCKER_IMAGE_NAME = "jascar/trainschedule"
+         CHKP_CLOUDGUARD_ID = credentials("CHKP_CLOUDGUARD_ID")
+         CHKP_CLOUDGUARD_SECRET = credentials("CHKP_CLOUDGUARD_SECRET")
     }
       
     stages {
@@ -20,6 +22,27 @@ pipeline {
       sh 'npm run Build'
   }
 }        
+        stage('ShiftLeft Code Scan') {   
+       steps {   
+                   
+         script {      
+              try {
+
+             
+                
+            
+                sh 'chmod +x shiftleft' 
+
+                sh './shiftleft code-scan -s .'
+           
+               } catch (Exception e) {
+    
+                 echo "Request for Approval"  
+                  }
+              }
+            }
+         }
+        
         stage('Build') {
             steps {
                 echo 'Running build automation'
