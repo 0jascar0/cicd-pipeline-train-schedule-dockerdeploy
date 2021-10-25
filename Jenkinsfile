@@ -2,6 +2,10 @@ pipeline {
     agent any
       tools {nodejs "node"}
  
+    environment {
+        //be sure to replace "willbla" with your own Docker Hub username
+        DOCKER_IMAGE_NAME = "jascar/trainschedule"
+    }
       
     stages {
      stage('Check') {
@@ -29,7 +33,7 @@ pipeline {
             }
             steps {
                 script {
-                    app = docker.build("train-schedule-d:latest")
+                    app = docker.build(DOCKER_IMAGE_NAME)
                     app.inside {
 //                        sh 'echo $(curl localhost:8081)'
                     }
