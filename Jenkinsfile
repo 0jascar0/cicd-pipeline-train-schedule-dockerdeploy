@@ -30,7 +30,7 @@ pipeline {
                 script {
                     app = docker.build("train-schedule-d:latest")
                     app.inside {
-                        sh 'echo $(curl localhost:8081)'
+//                        sh 'echo $(curl localhost:8081)'
                     }
                 }
             }
