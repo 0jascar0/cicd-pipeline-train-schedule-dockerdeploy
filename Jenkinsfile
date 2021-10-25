@@ -12,7 +12,6 @@ pipeline {
   }
   steps {
       sh 'npm install'
-      sh ´npm audit fix´
       sh 'npm run Build'
   }
 }        
