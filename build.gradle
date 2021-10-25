@@ -9,25 +9,31 @@ node {
 
 }
 
+//declare a build task
 task build
 
-    task zip(type: Zip) {
-        from ('.') {
-            include "*"
-            include "bin/**"
-            include "data/**"
-            include "node_modules/**"
-            include "public/**"
-            include "routes/**"
-            include "views/**"
-        }
-        destinationDir(file("dist"))
-        baseName "trainSchedule"
-    }
-    build.dependsOn zip
-    zip.dependsOn npm_build
+//declare a task to create a zip of the app
+task zip(type: Zip) {
+	from ('.') {
+		include "*"
+		include "bin/**"
+		include "data/**"
+		include "node_modules/**"
+		include "public/**"
+		include "routes/**"
+		include "views/**"
+	}
+	destinationDir(file("dist"))
+	baseName "trainSchedule"
+}
 
-build.dependsOn npm_build
-npm_build.dependsOn npmInstall
+//declare task dependencies
+build.dependsOn zip
+zip.dependsOn npm_build
+npm_cache_clean {
+	args = ['--force']
+}
+npm_build.dependsOn npm_clean_cache
 npm_build.dependsOn npm_test
 npm_test.dependsOn npmInstall
+npm_build.dependsOn npmInstall
