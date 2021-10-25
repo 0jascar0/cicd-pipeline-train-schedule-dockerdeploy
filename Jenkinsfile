@@ -50,8 +50,8 @@ pipeline {
             }
             steps{   
          script {
-            docker.withRegistry( String "http://${registryUrl}", registryCredential ) {
-            dockerImage.push()
+            docker.withRegistry( "http://${registryUrl}", registryCredential ) {
+            dockerImage.push(train-schedule-d:latest)
             }
         }
       }
