@@ -24,14 +24,14 @@ pipeline {
 
         stage('CloudGuard_Shiftleft_Code_Scan') {
             environment {
-                CHKP_CLOUDGUARD_CREDS = credentials(CloudGuard_Credentials)
-            }
+                CHKP_CLOUDGUARD_CREDS = credentialsID: (CloudGuard_Credentials)
+                        }
             agent {
                 docker { 
                     image 'checkpoint/shiftleft:latest'
                     args '-v /tmp/:/tmp/'
-                }
-            }
+                  }
+                        }
             steps {
                 dir('code-dir') {
                     git branch: '{banch}',
