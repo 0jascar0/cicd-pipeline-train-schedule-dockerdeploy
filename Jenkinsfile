@@ -3,7 +3,7 @@ pipeline {
       tools {nodejs "node"}
  
     environment {
-        //be sure to replace "willbla" with your own Docker Hub username
+        //be sure to replace "jascar" with your own Docker Hub username
         DOCKER_IMAGE_NAME = "jascar/trainschedule"
     }
       
