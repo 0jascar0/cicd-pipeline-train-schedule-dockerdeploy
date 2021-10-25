@@ -2,6 +2,15 @@ pipeline {
     agent any
       tools {nodejs "node"}
  
+     environment {
+        //once you create ACR in Azure cloud, use that here
+        registryName = "cicdregistrydemo"
+        //- update your credentials ID after creating credentials for connecting to ACR
+        registryCredential = 'ACR'
+        dockerImage = ''
+        registryUrl = 'cicdcontainerregistrydemo.azurecr.io'
+    }
+    
     stages {
      stage('Check') {
   when {
@@ -39,14 +48,13 @@ pipeline {
             when {
                 branch 'master'
             }
-            steps {
-                script {
-                    docker.withRegistry('cicdregistrydemo.azurecr.io', 'docker_hub_login') {
-                        app.push("${env.BUILD_NUMBER}")
-                        app.push("latest")
-                    }
-                }
+            steps{   
+         script {
+            docker.withRegistry( "http://${registryUrl}", registryCredential ) {
+            dockerImage.push()
             }
+        }
+      }
         }
         stage('DeployToProduction') {
             when {
