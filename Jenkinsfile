@@ -22,6 +22,27 @@ pipeline {
   }
 }        
 
+               
+        stage('Build') {
+            steps {
+                echo 'Running build automation'
+                sh './gradlew build --no-daemon'
+                archiveArtifacts artifacts: 'dist/trainSchedule.zip'
+            }
+        }
+        stage('Build Docker Image') {
+            when {
+                branch 'master'
+            }
+            steps {
+                script {
+                    app = docker.build(DOCKER_IMAGE_NAME)
+                    app.inside {
+//                        sh 'echo $(curl localhost:8081)'
+                    }
+                }
+            }
+        }
         stage('CloudGuard_Shiftleft_Code_Scan') {
             environment {
                 CHKP_CLOUDGUARD_CREDS = credentials("${CHKP_CLOUDGUARD_CREDS}")
@@ -45,27 +66,6 @@ pipeline {
                 '''
                     }
     }
-        
-        stage('Build') {
-            steps {
-                echo 'Running build automation'
-                sh './gradlew build --no-daemon'
-                archiveArtifacts artifacts: 'dist/trainSchedule.zip'
-            }
-        }
-        stage('Build Docker Image') {
-            when {
-                branch 'master'
-            }
-            steps {
-                script {
-                    app = docker.build(DOCKER_IMAGE_NAME)
-                    app.inside {
-//                        sh 'echo $(curl localhost:8081)'
-                    }
-                }
-            }
-        }
         stage('Push Docker Image') {
             when {
                 branch 'master'
