@@ -29,11 +29,7 @@ task zip(type: Zip) {
 
 //declare task dependencies
 build.dependsOn zip
-zip.dependsOn npm_build
-npm_cache_clean {
-	args = ['--force']
-}
-npm_build.dependsOn npm_clean_cache
+zip.dependsOn npm_run_build
 npm_build.dependsOn npm_test
 npm_test.dependsOn npmInstall
 npm_build.dependsOn npmInstall
