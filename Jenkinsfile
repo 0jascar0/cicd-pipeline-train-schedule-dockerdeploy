@@ -2,7 +2,7 @@ pipeline {
     agent any
       tools {nodejs "NodeJS 16.11.1"}
  
-  stage('Check') {
+  stage('Check') 
   when {
     anyOf {
       changeset "src/**/*.ts"
