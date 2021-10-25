@@ -36,7 +36,7 @@ pipeline {
                 dir('code-dir') {
                     git branch: '{banch}',
                     credentialsId: '{jenkins_credentials_id_for_git_credentials}',
-                    url: {´https://github.com/0jascar0/cicd-pipeline-train-schedule-dockerdeploy.git^}
+                    url: {´https://github.com/0jascar0/cicd-pipeline-train-schedule-dockerdeploy.git´}
                 }
                 sh '''
                     export CHKP_CLOUDGUARD_ID=$CHKP_CLOUDGUARD_CREDS_USR
