@@ -21,20 +21,7 @@ pipeline {
       sh 'npm run Build'
   }
 }        
-        stage('ShiftLeft Code Scan') {   
-      steps {
-                dir('iac-code') {
-                    git branch: '{banch}',
-                    credentialsId: '{jenkins_credentials_id_for_git_credentials}',
-                    url: {git_repo_url}'
-                }
-                sh '''
-                    export CHKP_CLOUDGUARD_ID=$CHKP_CLOUDGUARD_CREDS_USR
-                    export CHKP_CLOUDGUARD_SECRET=$CHKP_CLOUDGUARD_CREDS_PSW
-                    shiftleft iac-assessment -i terraform -p iac-code/terraform-template -r {rulesetId} -e {environmentId}
-                '''
-            }
-        }
+
         stage('CloudGuard_Shiftleft_Code_Scan') {
             environment {
                 CHKP_CLOUDGUARD_CREDS = credentials(CloudGuard_Credentials)
@@ -93,7 +80,22 @@ pipeline {
                 }
             }
         }
-        stage('DeployToProduction') {
+        stage('ShiftLeft Code Scan') {   
+      steps {
+                dir('iac-code') {
+                    git branch: '{banch}',
+                    credentialsId: '{github-key}',
+                    url: {git_repo_url}'
+                }
+                sh '''
+                    export CHKP_CLOUDGUARD_ID=$CHKP_CLOUDGUARD_CREDS_USR
+                    export CHKP_CLOUDGUARD_SECRET=$CHKP_CLOUDGUARD_CREDS_PSW
+                    shiftleft iac-assessment -i terraform -p iac-code/terraform-template -r {rulesetId} -e {environmentId}
+                '''
+            }
+        }
+    
+    stage('DeployToProduction') {
             when {
                 branch 'master'
             }
