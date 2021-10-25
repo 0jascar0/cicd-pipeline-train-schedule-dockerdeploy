@@ -24,7 +24,7 @@ pipeline {
 
         stage('CloudGuard_Shiftleft_Code_Scan') {
             environment {
-                CHKP_CLOUDGUARD_CREDS = credentialsID: (CloudGuard_Credentials)
+                CHKP_CLOUDGUARD_CREDS = credentials (CloudGuard_Credentials)
                         }
             agent {
                 docker { 
