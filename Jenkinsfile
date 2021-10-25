@@ -31,9 +31,7 @@ pipeline {
              
                 
             
-                sh 'chmod +x shiftleft' 
-
-                sh './shiftleft code-scan -s .'
+               sh './shiftleft code-scan -s .'
            
                } catch (Exception e) {
     
