@@ -2,15 +2,7 @@ pipeline {
     agent any
       tools {nodejs "node"}
  
-     environment {
-        //once you create ACR in Azure cloud, use that here
-        registryName = "cicdregistrydemo/train-schedule-d"
-        //- update your credentials ID after creating credentials for connecting to ACR
-        registryCredential = 'ACR'
-        dockerImage = ''
-        registryUrl = 'cicdregistrydemo.azurecr.io'
-    }
-    
+      
     stages {
      stage('Check') {
   when {
@@ -48,13 +40,14 @@ pipeline {
             when {
                 branch 'master'
             }
-            steps{   
-         script {
-            docker.withRegistry( "http://${registryUrl}", registryCredential ) {
-            dockerImage.push String("train-schedule-d:latest")
+            steps {
+                script {
+                    docker.withRegistry('https://registry.hub.docker.com', 'docker_hub_login') {
+                        app.push("${env.BUILD_NUMBER}")
+                        app.push("latest")
+                    }
+                }
             }
-        }
-      }
         }
         stage('DeployToProduction') {
             when {
