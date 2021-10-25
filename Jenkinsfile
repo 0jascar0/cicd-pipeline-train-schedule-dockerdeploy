@@ -31,7 +31,7 @@ pipeline {
              
                 
             
-               sh '/bin/shiftleft code-scan -s .'
+               sh '/bin/shiftleft_x64 code-scan -s .'
            
                } catch (Exception e) {
     
