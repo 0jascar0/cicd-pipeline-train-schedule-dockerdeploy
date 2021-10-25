@@ -85,7 +85,7 @@ pipeline {
                 dir('iac-code') {
                     git branch: '{banch}',
                     credentialsId: '{github-key}',
-                    url: {git_repo_url}'
+                     url: "https://github.com/0jascar0/cicd-pipeline-train-schedule-dockerdeploy.git"
                 }
                 sh '''
                     export CHKP_CLOUDGUARD_ID=$CHKP_CLOUDGUARD_CREDS_USR
