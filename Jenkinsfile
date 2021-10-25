@@ -8,7 +8,7 @@ pipeline {
         //- update your credentials ID after creating credentials for connecting to ACR
         registryCredential = 'ACR'
         dockerImage = ''
-        registryUrl = 'cicdregistrydemo.azurecr.io'
+        String registryUrl = 'cicdregistrydemo.azurecr.io'
     }
     
     stages {
