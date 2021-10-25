@@ -49,7 +49,7 @@ pipeline {
                         }
             agent {
                 docker { 
-                    image 'checkpoint/shiftleft:latest'
+                    image (DOCKER_IMAGE_NAME)
                     args '-v /tmp/:/tmp/'
                   }
                         }
