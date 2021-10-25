@@ -5,8 +5,8 @@ pipeline {
     environment {
         //be sure to replace "jascar" with your own Docker Hub username
         DOCKER_IMAGE_NAME = "jascar/trainschedule"
-         CHKP_CLOUDGUARD_ID = credentials("CHKP_CLOUDGUARD_ID")
-         CHKP_CLOUDGUARD_SECRET = credentials("CHKP_CLOUDGUARD_SECRET")
+         CHKP_CLOUDGUARD_ID = "CHKP_CLOUDGUARD_ID"
+         CHKP_CLOUDGUARD_SECRET = "CHKP_CLOUDGUARD_SECRET"
     }
       
     stages {
