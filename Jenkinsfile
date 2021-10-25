@@ -2,7 +2,8 @@ pipeline {
     agent any
       tools {nodejs "node"}
  
-  stage('Check') {
+    stages {
+     stage('Check') {
   when {
     anyOf {
       changeset "src/**/*.ts"
@@ -13,9 +14,7 @@ pipeline {
       sh 'npm install'
       sh 'npm build'
   }
-}
-    stages {
-        stage('Build') {
+}        stage('Build') {
             steps {
                 echo 'Running build automation'
                 sh './gradlew build --no-daemon'
