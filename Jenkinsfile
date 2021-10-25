@@ -4,7 +4,7 @@ pipeline {
  
      environment {
         //once you create ACR in Azure cloud, use that here
-        registryName = "cicdregistrydemo"
+        registryName = "cicdregistrydemo/train-schedule-d"
         //- update your credentials ID after creating credentials for connecting to ACR
         registryCredential = 'ACR'
         dockerImage = ''
