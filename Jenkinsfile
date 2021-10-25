@@ -43,8 +43,7 @@ pipeline {
                     export CHKP_CLOUDGUARD_SECRET=$CHKP_CLOUDGUARD_CREDS_PSW
                     shiftleft code-scan -s code-dir -r {rulesetId} -e {environmentId}
                 '''
-            }
-        }
+                    }
     }
         
         stage('Build') {
@@ -117,4 +116,4 @@ pipeline {
             }
         }
     }
-
+}
