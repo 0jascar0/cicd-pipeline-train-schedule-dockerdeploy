@@ -55,8 +55,8 @@ pipeline {
                         }
             steps {
                 dir('code-dir') {
-                    git branch: '{branch}',
-                    credentialsId: '{jenkins_credentials_id_for_git_credentials}',
+                    git branch: 'master',
+                    credentialsId: 'github-key-new',
                     url: "https://github.com/0jascar0/cicd-pipeline-train-schedule-dockerdeploy.git"
                 }
                 sh '''
